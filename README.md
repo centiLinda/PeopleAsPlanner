@@ -19,6 +19,8 @@ docker run -it \
 
 This repo contains the main implementation code for our method and the baselines (excluding the Gazebo setup, which is only available in our Docker environment). 
 The main code for our method PeopleAsPlanner and the parameters can be found in `our_robot.py`.
+The baselines and other dependencies are marked by submodules.
+
 You may build upon this code to work with other simulators or real-world robots.
 
 ## Experiments
@@ -34,7 +36,7 @@ It may take a while for the Rviz and Gazebo windows to spawn, and the experiment
 
 After multiple runs, you may use `matric_cal_new.py` to calculate the metrics for each run, and `from_txt_to_table.py` to get a summary of all runs.
 
-Please raise an issue if you have any questions :blush:
+Feel free to raise an issue if you have any questions :blush:
 
 ## TODO
 - [ ] update RAL citation
