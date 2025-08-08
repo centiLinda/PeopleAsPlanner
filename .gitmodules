@@ -1,0 +1,21 @@
+[submodule "sim_ws/src/dwa_planner"]
+	path = sim_ws/src/dwa_planner
+	url = https://github.com/amslabtech/dwa_planner.git
+[submodule "sim_ws/src/gazebo_cars"]
+	path = sim_ws/src/gazebo_cars
+	url = https://github.com/ayushgaud/gazebo_cars.git
+[submodule "sim_ws/src/gazebo_ros_pkgs"]
+	path = sim_ws/src/gazebo_ros_pkgs
+	url = https://github.com/ros-simulation/gazebo_ros_pkgs.git
+[submodule "sim_ws/src/velodyne_simulator"]
+	path = sim_ws/src/velodyne_simulator
+	url = https://github.com/lmark1/velodyne_simulator.git
+[submodule "sim_ws/src/data_play/scripts/CrowdNav_HEIGHT"]
+	path = sim_ws/src/data_play/scripts/CrowdNav_HEIGHT
+	url = https://github.com/Shuijing725/CrowdNav_HEIGHT.git
+[submodule "sim_ws/src/data_play/scripts/Pred2Nav"]
+	path = sim_ws/src/data_play/scripts/Pred2Nav
+	url = https://github.com/sriyash421/Pred2Nav.git
+[submodule "sim_ws/src/p2os"]
+	path = sim_ws/src/p2os
+	url = https://github.com/allenh1/p2os.git

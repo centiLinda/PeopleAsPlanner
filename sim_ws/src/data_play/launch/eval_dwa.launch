@@ -1,0 +1,49 @@
+<launch>
+    <arg name="debug" default="true" />
+
+    <arg name="scene" default="crossing_0"/> <!-- Edit scene here -->
+    <param name="scene" value="$(arg scene)"/>
+
+    <env name="GAZEBO_MODEL_PATH" value="${GAZEBO_MODEL_PATH}:$(find gazebo_cars)/models"/>
+    <env name="GAZEBO_RESOURCE_PATH" value="${GAZEBO_RESOURCE_PATH}:$(find gazebo_cars)/models"/>
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="/root/sim_ws/src/data_play/temp/$(arg scene)/world/main.world"/>
+        <arg name="output" value="screen"/>
+        <arg name="gui" value="true"/> 
+    </include>
+
+    <arg name="robot1_namespace" default="robot_1"/>    
+    <group ns="$(arg robot1_namespace)">
+        <param name="robot_description" command="$(find xacro)/xacro $(find p2os_urdf)/defs/pioneer3at.xacro robot_namespace:=$(arg robot1_namespace)" />
+        <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+        <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" >
+            <param name="tf_prefix" type="string" value="$(arg robot1_namespace)" />
+        </node>
+        <node pkg="gazebo_ros" type="spawn_model" name="model" args="-urdf -model $(arg robot1_namespace) -param robot_description -x 55 -y 40"  >
+        </node>
+    </group>
+
+    <node pkg="data_play" type="robot_controller.py" name="robot_controller">
+        <param name="control_rate" value="30" />
+    </node>
+
+    <!-- find dwa -->
+    <include file="$(find dwa_planner)/launch/dwa.launch" />
+
+    <node pkg="data_play" type="model_velocity_node.py" name="model_velocity_node" output="screen">
+    </node>
+
+    <node pkg="data_play" type="env_vis.py" name="model_visualization_node" output="screen">
+    </node>
+
+    <node pkg="data_play" type="dwa_interface.py" name="robot_node"> <!-- Specify method here -->
+    </node>
+    
+    <node pkg="data_play" type="recorder_new.py" name="recorder_node">
+    </node>
+
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find p2os_urdf)/rviz/one_robot.rviz"/>
+
+    <param name="use_sim_time" value="true"/>
+
+</launch>

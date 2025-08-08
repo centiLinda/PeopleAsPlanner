@@ -1,0 +1,3385 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="multi_obstacle_world">
+    <gui>
+        <camera name="custom_camera">
+            <pose>26 35 47 0 1.57 1.57</pose>  <!-- x, y, z, roll, pitch, yaw -->
+            <view_controller>orbit</view_controller> 
+        </camera>
+    </gui>
+    <model name="large_ground_plane">
+        <static>true</static>
+        <link name="ground_link">
+            <collision name="collision">
+                <geometry>
+                    <plane>
+                        <size>200 200</size>  <!-- Set larger size (X, Y in meters) -->
+                    </plane>
+                </geometry>
+                <surface>
+                    <friction>
+                        <ode>
+                            <mu>1.0</mu>
+                            <mu2>1.0</mu2>
+                        </ode>
+                    </friction>
+                </surface>
+            </collision>
+            
+            <visual name="visual">
+                <geometry>
+                    <plane>
+                        <size>200 200</size>  <!-- Must match collision size -->
+                    </plane>
+                </geometry>
+                <material>
+                    <script>
+                        <uri>file://media/materials/scripts/gazebo.material</uri>
+                        <name>Gazebo/Grey</name>
+                    </script>
+                </material>
+            </visual>
+        </link>
+    </model>
+    
+    <model name="obstacle_0">
+      <static>true</static>
+      <pose>0 0 0 0 0 0</pose>
+      <link name="obstacle_link">
+        <visual name="visual">
+          <geometry>
+            <polyline>
+              <height>3.0</height>
+              <point>51.0 43.5</point>
+<point>51.0 66.0</point>
+<point>29.0 66.0</point>
+<point>29.0 43.5</point>
+<point>51.0 43.5</point>
+            </polyline>
+          </geometry>
+          <material>
+            <ambient>0.8 0.1 0.1 1.0</ambient>
+          </material>
+        </visual>
+
+        <collision name="collision">
+          <geometry>
+            <polyline>
+              <height>3.0</height>
+              <point>51.0 43.5</point>
+<point>51.0 66.0</point>
+<point>29.0 66.0</point>
+<point>29.0 43.5</point>
+<point>51.0 43.5</point>
+            </polyline>
+          </geometry>
+        </collision>
+      </link>
+    </model>
+    <model name="obstacle_1">
+      <static>true</static>
+      <pose>0 0 0 0 0 0</pose>
+      <link name="obstacle_link">
+        <visual name="visual">
+          <geometry>
+            <polyline>
+              <height>3.0</height>
+              <point>0.0 43.5</point>
+<point>21.0 43.5</point>
+<point>21.0 66.0</point>
+<point>0.0 66.0</point>
+<point>0.0 43.5</point>
+            </polyline>
+          </geometry>
+          <material>
+            <ambient>0.8 0.1 0.1 1.0</ambient>
+          </material>
+        </visual>
+
+        <collision name="collision">
+          <geometry>
+            <polyline>
+              <height>3.0</height>
+              <point>0.0 43.5</point>
+<point>21.0 43.5</point>
+<point>21.0 66.0</point>
+<point>0.0 66.0</point>
+<point>0.0 43.5</point>
+            </polyline>
+          </geometry>
+        </collision>
+      </link>
+    </model>
+    <model name="obstacle_2">
+      <static>true</static>
+      <pose>0 0 0 0 0 0</pose>
+      <link name="obstacle_link">
+        <visual name="visual">
+          <geometry>
+            <polyline>
+              <height>3.0</height>
+              <point>51.0 0.0</point>
+<point>51.0 33.5</point>
+<point>29.0 33.5</point>
+<point>29.0 0.0</point>
+<point>51.0 0.0</point>
+            </polyline>
+          </geometry>
+          <material>
+            <ambient>0.8 0.1 0.1 1.0</ambient>
+          </material>
+        </visual>
+
+        <collision name="collision">
+          <geometry>
+            <polyline>
+              <height>3.0</height>
+              <point>51.0 0.0</point>
+<point>51.0 33.5</point>
+<point>29.0 33.5</point>
+<point>29.0 0.0</point>
+<point>51.0 0.0</point>
+            </polyline>
+          </geometry>
+        </collision>
+      </link>
+    </model>
+    <model name="obstacle_3">
+      <static>true</static>
+      <pose>0 0 0 0 0 0</pose>
+      <link name="obstacle_link">
+        <visual name="visual">
+          <geometry>
+            <polyline>
+              <height>3.0</height>
+              <point>0.0 0.0</point>
+<point>21.0 0.0</point>
+<point>21.0 33.5</point>
+<point>0.0 33.5</point>
+<point>0.0 0.0</point>
+            </polyline>
+          </geometry>
+          <material>
+            <ambient>0.8 0.1 0.1 1.0</ambient>
+          </material>
+        </visual>
+
+        <collision name="collision">
+          <geometry>
+            <polyline>
+              <height>3.0</height>
+              <point>0.0 0.0</point>
+<point>21.0 0.0</point>
+<point>21.0 33.5</point>
+<point>0.0 33.5</point>
+<point>0.0 0.0</point>
+            </polyline>
+          </geometry>
+        </collision>
+      </link>
+    </model>
+    
+  <actor name="actor_110">
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1000 1000 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_110.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <include>
+      <uri>model://car_008</uri>
+      <name>bike_110</name> 
+      <plugin name="ModelFollowerPlugin" filename="/root/sim_ws/devel/lib/libModelFollowerPlugin.so">
+          <actor_name>actor_110</actor_name>
+      </plugin>
+  </include>
+
+
+  <actor name="actor_111">
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1001 1001 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_111.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <include>
+      <uri>model://car_008</uri>
+      <name>bike_111</name> 
+      <plugin name="ModelFollowerPlugin" filename="/root/sim_ws/devel/lib/libModelFollowerPlugin.so">
+          <actor_name>actor_111</actor_name>
+      </plugin>
+  </include>
+
+
+  <actor name="actor_113">
+
+    <plugin name="actor_collisions_plugin" filename="/root/sim_ws/devel/lib/libActorCollisionsPlugin.so">
+      <scaling collision="LHipJoint_LeftUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftUpLeg_LeftLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftLeg_LeftFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftFoot_LeftToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="RHipJoint_RightUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightUpLeg_RightLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightLeg_RightFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightFoot_RightToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="LowerBack_Spine_collision" scale="
+        12.0
+        20.0
+        5.0
+      " pose="0.05 0 0 0 -0.2 0"/>
+      <scaling collision="Spine_Spine1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck_Neck1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck1_Head_collision" scale="
+        5.0
+        5.0
+        3.0
+      "/>
+      <scaling collision="LeftShoulder_LeftArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftArm_LeftForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftForeArm_LeftHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftFingerBase_LeftHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+      <scaling collision="RightShoulder_RightArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightArm_RightForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightForeArm_RightHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightFingerBase_RightHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+    </plugin>
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <skin>
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <scale>1.0</scale>
+    </skin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1002 1002 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_113.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <actor name="actor_116">
+
+    <plugin name="actor_collisions_plugin" filename="/root/sim_ws/devel/lib/libActorCollisionsPlugin.so">
+      <scaling collision="LHipJoint_LeftUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftUpLeg_LeftLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftLeg_LeftFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftFoot_LeftToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="RHipJoint_RightUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightUpLeg_RightLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightLeg_RightFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightFoot_RightToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="LowerBack_Spine_collision" scale="
+        12.0
+        20.0
+        5.0
+      " pose="0.05 0 0 0 -0.2 0"/>
+      <scaling collision="Spine_Spine1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck_Neck1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck1_Head_collision" scale="
+        5.0
+        5.0
+        3.0
+      "/>
+      <scaling collision="LeftShoulder_LeftArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftArm_LeftForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftForeArm_LeftHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftFingerBase_LeftHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+      <scaling collision="RightShoulder_RightArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightArm_RightForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightForeArm_RightHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightFingerBase_RightHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+    </plugin>
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <skin>
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <scale>1.0</scale>
+    </skin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1003 1003 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_116.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <actor name="actor_117">
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1004 1004 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_117.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <include>
+      <uri>model://car_008</uri>
+      <name>bike_117</name> 
+      <plugin name="ModelFollowerPlugin" filename="/root/sim_ws/devel/lib/libModelFollowerPlugin.so">
+          <actor_name>actor_117</actor_name>
+      </plugin>
+  </include>
+
+
+  <actor name="actor_118">
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1005 1005 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_118.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <include>
+      <uri>model://car_008</uri>
+      <name>bike_118</name> 
+      <plugin name="ModelFollowerPlugin" filename="/root/sim_ws/devel/lib/libModelFollowerPlugin.so">
+          <actor_name>actor_118</actor_name>
+      </plugin>
+  </include>
+
+
+  <actor name="actor_119">
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1006 1006 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_119.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <include>
+      <uri>model://car_008</uri>
+      <name>bike_119</name> 
+      <plugin name="ModelFollowerPlugin" filename="/root/sim_ws/devel/lib/libModelFollowerPlugin.so">
+          <actor_name>actor_119</actor_name>
+      </plugin>
+  </include>
+
+
+  <actor name="actor_120">
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1007 1007 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_120.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <include>
+      <uri>model://car_008</uri>
+      <name>bike_120</name> 
+      <plugin name="ModelFollowerPlugin" filename="/root/sim_ws/devel/lib/libModelFollowerPlugin.so">
+          <actor_name>actor_120</actor_name>
+      </plugin>
+  </include>
+
+
+  <actor name="actor_121">
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1008 1008 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_121.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <include>
+      <uri>model://car_012</uri>
+      <name>car_121</name> 
+      <plugin name="ModelFollowerPlugin" filename="/root/sim_ws/devel/lib/libModelFollowerPlugin.so">
+          <actor_name>actor_121</actor_name>
+      </plugin>
+  </include>
+
+
+  <actor name="actor_122">
+
+    <plugin name="actor_collisions_plugin" filename="/root/sim_ws/devel/lib/libActorCollisionsPlugin.so">
+      <scaling collision="LHipJoint_LeftUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftUpLeg_LeftLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftLeg_LeftFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftFoot_LeftToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="RHipJoint_RightUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightUpLeg_RightLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightLeg_RightFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightFoot_RightToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="LowerBack_Spine_collision" scale="
+        12.0
+        20.0
+        5.0
+      " pose="0.05 0 0 0 -0.2 0"/>
+      <scaling collision="Spine_Spine1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck_Neck1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck1_Head_collision" scale="
+        5.0
+        5.0
+        3.0
+      "/>
+      <scaling collision="LeftShoulder_LeftArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftArm_LeftForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftForeArm_LeftHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftFingerBase_LeftHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+      <scaling collision="RightShoulder_RightArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightArm_RightForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightForeArm_RightHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightFingerBase_RightHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+    </plugin>
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <skin>
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <scale>1.0</scale>
+    </skin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1009 1009 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_122.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <actor name="actor_123">
+
+    <plugin name="actor_collisions_plugin" filename="/root/sim_ws/devel/lib/libActorCollisionsPlugin.so">
+      <scaling collision="LHipJoint_LeftUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftUpLeg_LeftLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftLeg_LeftFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftFoot_LeftToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="RHipJoint_RightUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightUpLeg_RightLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightLeg_RightFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightFoot_RightToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="LowerBack_Spine_collision" scale="
+        12.0
+        20.0
+        5.0
+      " pose="0.05 0 0 0 -0.2 0"/>
+      <scaling collision="Spine_Spine1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck_Neck1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck1_Head_collision" scale="
+        5.0
+        5.0
+        3.0
+      "/>
+      <scaling collision="LeftShoulder_LeftArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftArm_LeftForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftForeArm_LeftHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftFingerBase_LeftHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+      <scaling collision="RightShoulder_RightArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightArm_RightForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightForeArm_RightHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightFingerBase_RightHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+    </plugin>
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <skin>
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <scale>1.0</scale>
+    </skin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1010 1010 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_123.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <actor name="actor_124">
+
+    <plugin name="actor_collisions_plugin" filename="/root/sim_ws/devel/lib/libActorCollisionsPlugin.so">
+      <scaling collision="LHipJoint_LeftUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftUpLeg_LeftLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftLeg_LeftFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftFoot_LeftToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="RHipJoint_RightUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightUpLeg_RightLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightLeg_RightFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightFoot_RightToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="LowerBack_Spine_collision" scale="
+        12.0
+        20.0
+        5.0
+      " pose="0.05 0 0 0 -0.2 0"/>
+      <scaling collision="Spine_Spine1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck_Neck1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck1_Head_collision" scale="
+        5.0
+        5.0
+        3.0
+      "/>
+      <scaling collision="LeftShoulder_LeftArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftArm_LeftForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftForeArm_LeftHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftFingerBase_LeftHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+      <scaling collision="RightShoulder_RightArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightArm_RightForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightForeArm_RightHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightFingerBase_RightHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+    </plugin>
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <skin>
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <scale>1.0</scale>
+    </skin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1011 1011 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_124.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <actor name="actor_125">
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1012 1012 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_125.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <include>
+      <uri>model://car_008</uri>
+      <name>bike_125</name> 
+      <plugin name="ModelFollowerPlugin" filename="/root/sim_ws/devel/lib/libModelFollowerPlugin.so">
+          <actor_name>actor_125</actor_name>
+      </plugin>
+  </include>
+
+
+  <actor name="actor_126">
+
+    <plugin name="actor_collisions_plugin" filename="/root/sim_ws/devel/lib/libActorCollisionsPlugin.so">
+      <scaling collision="LHipJoint_LeftUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftUpLeg_LeftLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftLeg_LeftFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftFoot_LeftToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="RHipJoint_RightUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightUpLeg_RightLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightLeg_RightFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightFoot_RightToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="LowerBack_Spine_collision" scale="
+        12.0
+        20.0
+        5.0
+      " pose="0.05 0 0 0 -0.2 0"/>
+      <scaling collision="Spine_Spine1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck_Neck1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck1_Head_collision" scale="
+        5.0
+        5.0
+        3.0
+      "/>
+      <scaling collision="LeftShoulder_LeftArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftArm_LeftForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftForeArm_LeftHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftFingerBase_LeftHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+      <scaling collision="RightShoulder_RightArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightArm_RightForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightForeArm_RightHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightFingerBase_RightHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+    </plugin>
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <skin>
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <scale>1.0</scale>
+    </skin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1013 1013 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_126.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <actor name="actor_127">
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1014 1014 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_127.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <include>
+      <uri>model://car_008</uri>
+      <name>bike_127</name> 
+      <plugin name="ModelFollowerPlugin" filename="/root/sim_ws/devel/lib/libModelFollowerPlugin.so">
+          <actor_name>actor_127</actor_name>
+      </plugin>
+  </include>
+
+
+  <actor name="actor_129">
+
+    <plugin name="actor_collisions_plugin" filename="/root/sim_ws/devel/lib/libActorCollisionsPlugin.so">
+      <scaling collision="LHipJoint_LeftUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftUpLeg_LeftLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftLeg_LeftFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftFoot_LeftToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="RHipJoint_RightUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightUpLeg_RightLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightLeg_RightFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightFoot_RightToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="LowerBack_Spine_collision" scale="
+        12.0
+        20.0
+        5.0
+      " pose="0.05 0 0 0 -0.2 0"/>
+      <scaling collision="Spine_Spine1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck_Neck1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck1_Head_collision" scale="
+        5.0
+        5.0
+        3.0
+      "/>
+      <scaling collision="LeftShoulder_LeftArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftArm_LeftForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftForeArm_LeftHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftFingerBase_LeftHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+      <scaling collision="RightShoulder_RightArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightArm_RightForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightForeArm_RightHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightFingerBase_RightHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+    </plugin>
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <skin>
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <scale>1.0</scale>
+    </skin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1015 1015 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_129.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <actor name="actor_130">
+
+    <plugin name="actor_collisions_plugin" filename="/root/sim_ws/devel/lib/libActorCollisionsPlugin.so">
+      <scaling collision="LHipJoint_LeftUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftUpLeg_LeftLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftLeg_LeftFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftFoot_LeftToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="RHipJoint_RightUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightUpLeg_RightLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightLeg_RightFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightFoot_RightToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="LowerBack_Spine_collision" scale="
+        12.0
+        20.0
+        5.0
+      " pose="0.05 0 0 0 -0.2 0"/>
+      <scaling collision="Spine_Spine1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck_Neck1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck1_Head_collision" scale="
+        5.0
+        5.0
+        3.0
+      "/>
+      <scaling collision="LeftShoulder_LeftArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftArm_LeftForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftForeArm_LeftHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftFingerBase_LeftHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+      <scaling collision="RightShoulder_RightArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightArm_RightForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightForeArm_RightHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightFingerBase_RightHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+    </plugin>
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <skin>
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <scale>1.0</scale>
+    </skin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1016 1016 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_130.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <actor name="actor_131">
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1017 1017 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_131.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <include>
+      <uri>model://car_008</uri>
+      <name>bike_131</name> 
+      <plugin name="ModelFollowerPlugin" filename="/root/sim_ws/devel/lib/libModelFollowerPlugin.so">
+          <actor_name>actor_131</actor_name>
+      </plugin>
+  </include>
+
+
+  <actor name="actor_132">
+
+    <plugin name="actor_collisions_plugin" filename="/root/sim_ws/devel/lib/libActorCollisionsPlugin.so">
+      <scaling collision="LHipJoint_LeftUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftUpLeg_LeftLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftLeg_LeftFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftFoot_LeftToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="RHipJoint_RightUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightUpLeg_RightLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightLeg_RightFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightFoot_RightToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="LowerBack_Spine_collision" scale="
+        12.0
+        20.0
+        5.0
+      " pose="0.05 0 0 0 -0.2 0"/>
+      <scaling collision="Spine_Spine1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck_Neck1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck1_Head_collision" scale="
+        5.0
+        5.0
+        3.0
+      "/>
+      <scaling collision="LeftShoulder_LeftArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftArm_LeftForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftForeArm_LeftHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftFingerBase_LeftHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+      <scaling collision="RightShoulder_RightArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightArm_RightForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightForeArm_RightHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightFingerBase_RightHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+    </plugin>
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <skin>
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <scale>1.0</scale>
+    </skin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1018 1018 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_132.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <actor name="actor_133">
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1019 1019 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_133.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <include>
+      <uri>model://car_008</uri>
+      <name>bike_133</name> 
+      <plugin name="ModelFollowerPlugin" filename="/root/sim_ws/devel/lib/libModelFollowerPlugin.so">
+          <actor_name>actor_133</actor_name>
+      </plugin>
+  </include>
+
+
+  <actor name="actor_134">
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1020 1020 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_134.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <include>
+      <uri>model://car_008</uri>
+      <name>bike_134</name> 
+      <plugin name="ModelFollowerPlugin" filename="/root/sim_ws/devel/lib/libModelFollowerPlugin.so">
+          <actor_name>actor_134</actor_name>
+      </plugin>
+  </include>
+
+
+  <actor name="actor_135">
+
+    <plugin name="actor_collisions_plugin" filename="/root/sim_ws/devel/lib/libActorCollisionsPlugin.so">
+      <scaling collision="LHipJoint_LeftUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftUpLeg_LeftLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftLeg_LeftFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftFoot_LeftToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="RHipJoint_RightUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightUpLeg_RightLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightLeg_RightFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightFoot_RightToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="LowerBack_Spine_collision" scale="
+        12.0
+        20.0
+        5.0
+      " pose="0.05 0 0 0 -0.2 0"/>
+      <scaling collision="Spine_Spine1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck_Neck1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck1_Head_collision" scale="
+        5.0
+        5.0
+        3.0
+      "/>
+      <scaling collision="LeftShoulder_LeftArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftArm_LeftForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftForeArm_LeftHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftFingerBase_LeftHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+      <scaling collision="RightShoulder_RightArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightArm_RightForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightForeArm_RightHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightFingerBase_RightHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+    </plugin>
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <skin>
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <scale>1.0</scale>
+    </skin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1021 1021 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_135.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <actor name="actor_136">
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1022 1022 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_136.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <include>
+      <uri>model://car_008</uri>
+      <name>bike_136</name> 
+      <plugin name="ModelFollowerPlugin" filename="/root/sim_ws/devel/lib/libModelFollowerPlugin.so">
+          <actor_name>actor_136</actor_name>
+      </plugin>
+  </include>
+
+
+  <actor name="actor_137">
+
+    <plugin name="actor_collisions_plugin" filename="/root/sim_ws/devel/lib/libActorCollisionsPlugin.so">
+      <scaling collision="LHipJoint_LeftUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftUpLeg_LeftLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftLeg_LeftFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftFoot_LeftToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="RHipJoint_RightUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightUpLeg_RightLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightLeg_RightFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightFoot_RightToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="LowerBack_Spine_collision" scale="
+        12.0
+        20.0
+        5.0
+      " pose="0.05 0 0 0 -0.2 0"/>
+      <scaling collision="Spine_Spine1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck_Neck1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck1_Head_collision" scale="
+        5.0
+        5.0
+        3.0
+      "/>
+      <scaling collision="LeftShoulder_LeftArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftArm_LeftForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftForeArm_LeftHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftFingerBase_LeftHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+      <scaling collision="RightShoulder_RightArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightArm_RightForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightForeArm_RightHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightFingerBase_RightHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+    </plugin>
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <skin>
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <scale>1.0</scale>
+    </skin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1023 1023 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_137.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <actor name="actor_138">
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1024 1024 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_138.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <include>
+      <uri>model://car_008</uri>
+      <name>bike_138</name> 
+      <plugin name="ModelFollowerPlugin" filename="/root/sim_ws/devel/lib/libModelFollowerPlugin.so">
+          <actor_name>actor_138</actor_name>
+      </plugin>
+  </include>
+
+
+  <actor name="actor_140">
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1025 1025 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_140.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <include>
+      <uri>model://car_008</uri>
+      <name>bike_140</name> 
+      <plugin name="ModelFollowerPlugin" filename="/root/sim_ws/devel/lib/libModelFollowerPlugin.so">
+          <actor_name>actor_140</actor_name>
+      </plugin>
+  </include>
+
+
+  <actor name="actor_141">
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1026 1026 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_141.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <include>
+      <uri>model://car_008</uri>
+      <name>bike_141</name> 
+      <plugin name="ModelFollowerPlugin" filename="/root/sim_ws/devel/lib/libModelFollowerPlugin.so">
+          <actor_name>actor_141</actor_name>
+      </plugin>
+  </include>
+
+
+  <actor name="actor_146">
+
+    <plugin name="actor_collisions_plugin" filename="/root/sim_ws/devel/lib/libActorCollisionsPlugin.so">
+      <scaling collision="LHipJoint_LeftUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftUpLeg_LeftLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftLeg_LeftFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftFoot_LeftToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="RHipJoint_RightUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightUpLeg_RightLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightLeg_RightFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightFoot_RightToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="LowerBack_Spine_collision" scale="
+        12.0
+        20.0
+        5.0
+      " pose="0.05 0 0 0 -0.2 0"/>
+      <scaling collision="Spine_Spine1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck_Neck1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck1_Head_collision" scale="
+        5.0
+        5.0
+        3.0
+      "/>
+      <scaling collision="LeftShoulder_LeftArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftArm_LeftForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftForeArm_LeftHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftFingerBase_LeftHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+      <scaling collision="RightShoulder_RightArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightArm_RightForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightForeArm_RightHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightFingerBase_RightHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+    </plugin>
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <skin>
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <scale>1.0</scale>
+    </skin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1027 1027 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_146.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <actor name="actor_148">
+
+    <plugin name="actor_collisions_plugin" filename="/root/sim_ws/devel/lib/libActorCollisionsPlugin.so">
+      <scaling collision="LHipJoint_LeftUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftUpLeg_LeftLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftLeg_LeftFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftFoot_LeftToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="RHipJoint_RightUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightUpLeg_RightLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightLeg_RightFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightFoot_RightToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="LowerBack_Spine_collision" scale="
+        12.0
+        20.0
+        5.0
+      " pose="0.05 0 0 0 -0.2 0"/>
+      <scaling collision="Spine_Spine1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck_Neck1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck1_Head_collision" scale="
+        5.0
+        5.0
+        3.0
+      "/>
+      <scaling collision="LeftShoulder_LeftArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftArm_LeftForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftForeArm_LeftHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftFingerBase_LeftHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+      <scaling collision="RightShoulder_RightArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightArm_RightForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightForeArm_RightHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightFingerBase_RightHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+    </plugin>
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <skin>
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <scale>1.0</scale>
+    </skin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1028 1028 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_148.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <actor name="actor_149">
+
+    <plugin name="actor_collisions_plugin" filename="/root/sim_ws/devel/lib/libActorCollisionsPlugin.so">
+      <scaling collision="LHipJoint_LeftUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftUpLeg_LeftLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftLeg_LeftFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftFoot_LeftToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="RHipJoint_RightUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightUpLeg_RightLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightLeg_RightFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightFoot_RightToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="LowerBack_Spine_collision" scale="
+        12.0
+        20.0
+        5.0
+      " pose="0.05 0 0 0 -0.2 0"/>
+      <scaling collision="Spine_Spine1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck_Neck1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck1_Head_collision" scale="
+        5.0
+        5.0
+        3.0
+      "/>
+      <scaling collision="LeftShoulder_LeftArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftArm_LeftForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftForeArm_LeftHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftFingerBase_LeftHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+      <scaling collision="RightShoulder_RightArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightArm_RightForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightForeArm_RightHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightFingerBase_RightHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+    </plugin>
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <skin>
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <scale>1.0</scale>
+    </skin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1029 1029 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_149.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <actor name="actor_150">
+
+    <plugin name="actor_collisions_plugin" filename="/root/sim_ws/devel/lib/libActorCollisionsPlugin.so">
+      <scaling collision="LHipJoint_LeftUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftUpLeg_LeftLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftLeg_LeftFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftFoot_LeftToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="RHipJoint_RightUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightUpLeg_RightLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightLeg_RightFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightFoot_RightToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="LowerBack_Spine_collision" scale="
+        12.0
+        20.0
+        5.0
+      " pose="0.05 0 0 0 -0.2 0"/>
+      <scaling collision="Spine_Spine1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck_Neck1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck1_Head_collision" scale="
+        5.0
+        5.0
+        3.0
+      "/>
+      <scaling collision="LeftShoulder_LeftArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftArm_LeftForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftForeArm_LeftHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftFingerBase_LeftHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+      <scaling collision="RightShoulder_RightArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightArm_RightForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightForeArm_RightHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightFingerBase_RightHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+    </plugin>
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <skin>
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <scale>1.0</scale>
+    </skin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1030 1030 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_150.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <actor name="actor_151">
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1031 1031 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_151.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <include>
+      <uri>model://car_008</uri>
+      <name>bike_151</name> 
+      <plugin name="ModelFollowerPlugin" filename="/root/sim_ws/devel/lib/libModelFollowerPlugin.so">
+          <actor_name>actor_151</actor_name>
+      </plugin>
+  </include>
+
+
+  <actor name="actor_152">
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1032 1032 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_152.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <include>
+      <uri>model://car_008</uri>
+      <name>bike_152</name> 
+      <plugin name="ModelFollowerPlugin" filename="/root/sim_ws/devel/lib/libModelFollowerPlugin.so">
+          <actor_name>actor_152</actor_name>
+      </plugin>
+  </include>
+
+
+  <actor name="actor_153">
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1033 1033 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_153.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <include>
+      <uri>model://car_008</uri>
+      <name>bike_153</name> 
+      <plugin name="ModelFollowerPlugin" filename="/root/sim_ws/devel/lib/libModelFollowerPlugin.so">
+          <actor_name>actor_153</actor_name>
+      </plugin>
+  </include>
+
+
+  <actor name="actor_154">
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1034 1034 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_154.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <include>
+      <uri>model://car_008</uri>
+      <name>bike_154</name> 
+      <plugin name="ModelFollowerPlugin" filename="/root/sim_ws/devel/lib/libModelFollowerPlugin.so">
+          <actor_name>actor_154</actor_name>
+      </plugin>
+  </include>
+
+
+  <actor name="actor_155">
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1035 1035 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_155.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <include>
+      <uri>model://car_008</uri>
+      <name>bike_155</name> 
+      <plugin name="ModelFollowerPlugin" filename="/root/sim_ws/devel/lib/libModelFollowerPlugin.so">
+          <actor_name>actor_155</actor_name>
+      </plugin>
+  </include>
+
+
+  <actor name="actor_156">
+
+    <plugin name="actor_collisions_plugin" filename="/root/sim_ws/devel/lib/libActorCollisionsPlugin.so">
+      <scaling collision="LHipJoint_LeftUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftUpLeg_LeftLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftLeg_LeftFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftFoot_LeftToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="RHipJoint_RightUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightUpLeg_RightLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightLeg_RightFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightFoot_RightToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="LowerBack_Spine_collision" scale="
+        12.0
+        20.0
+        5.0
+      " pose="0.05 0 0 0 -0.2 0"/>
+      <scaling collision="Spine_Spine1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck_Neck1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck1_Head_collision" scale="
+        5.0
+        5.0
+        3.0
+      "/>
+      <scaling collision="LeftShoulder_LeftArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftArm_LeftForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftForeArm_LeftHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftFingerBase_LeftHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+      <scaling collision="RightShoulder_RightArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightArm_RightForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightForeArm_RightHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightFingerBase_RightHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+    </plugin>
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <skin>
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <scale>1.0</scale>
+    </skin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1036 1036 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_156.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <actor name="actor_157">
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1037 1037 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_157.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <include>
+      <uri>model://car_008</uri>
+      <name>bike_157</name> 
+      <plugin name="ModelFollowerPlugin" filename="/root/sim_ws/devel/lib/libModelFollowerPlugin.so">
+          <actor_name>actor_157</actor_name>
+      </plugin>
+  </include>
+
+
+  <actor name="actor_158">
+
+    <plugin name="actor_collisions_plugin" filename="/root/sim_ws/devel/lib/libActorCollisionsPlugin.so">
+      <scaling collision="LHipJoint_LeftUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftUpLeg_LeftLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftLeg_LeftFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftFoot_LeftToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="RHipJoint_RightUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightUpLeg_RightLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightLeg_RightFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightFoot_RightToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="LowerBack_Spine_collision" scale="
+        12.0
+        20.0
+        5.0
+      " pose="0.05 0 0 0 -0.2 0"/>
+      <scaling collision="Spine_Spine1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck_Neck1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck1_Head_collision" scale="
+        5.0
+        5.0
+        3.0
+      "/>
+      <scaling collision="LeftShoulder_LeftArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftArm_LeftForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftForeArm_LeftHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftFingerBase_LeftHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+      <scaling collision="RightShoulder_RightArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightArm_RightForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightForeArm_RightHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightFingerBase_RightHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+    </plugin>
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <skin>
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <scale>1.0</scale>
+    </skin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1038 1038 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_158.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <actor name="actor_159">
+
+    <plugin name="actor_collisions_plugin" filename="/root/sim_ws/devel/lib/libActorCollisionsPlugin.so">
+      <scaling collision="LHipJoint_LeftUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftUpLeg_LeftLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftLeg_LeftFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftFoot_LeftToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="RHipJoint_RightUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightUpLeg_RightLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightLeg_RightFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightFoot_RightToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="LowerBack_Spine_collision" scale="
+        12.0
+        20.0
+        5.0
+      " pose="0.05 0 0 0 -0.2 0"/>
+      <scaling collision="Spine_Spine1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck_Neck1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck1_Head_collision" scale="
+        5.0
+        5.0
+        3.0
+      "/>
+      <scaling collision="LeftShoulder_LeftArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftArm_LeftForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftForeArm_LeftHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftFingerBase_LeftHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+      <scaling collision="RightShoulder_RightArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightArm_RightForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightForeArm_RightHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightFingerBase_RightHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+    </plugin>
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <skin>
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <scale>1.0</scale>
+    </skin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1039 1039 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_159.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <actor name="actor_161">
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1040 1040 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_161.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <include>
+      <uri>model://car_008</uri>
+      <name>bike_161</name> 
+      <plugin name="ModelFollowerPlugin" filename="/root/sim_ws/devel/lib/libModelFollowerPlugin.so">
+          <actor_name>actor_161</actor_name>
+      </plugin>
+  </include>
+
+
+  <actor name="actor_163">
+
+    <plugin name="actor_collisions_plugin" filename="/root/sim_ws/devel/lib/libActorCollisionsPlugin.so">
+      <scaling collision="LHipJoint_LeftUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftUpLeg_LeftLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftLeg_LeftFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftFoot_LeftToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="RHipJoint_RightUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightUpLeg_RightLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightLeg_RightFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightFoot_RightToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="LowerBack_Spine_collision" scale="
+        12.0
+        20.0
+        5.0
+      " pose="0.05 0 0 0 -0.2 0"/>
+      <scaling collision="Spine_Spine1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck_Neck1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck1_Head_collision" scale="
+        5.0
+        5.0
+        3.0
+      "/>
+      <scaling collision="LeftShoulder_LeftArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftArm_LeftForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftForeArm_LeftHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftFingerBase_LeftHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+      <scaling collision="RightShoulder_RightArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightArm_RightForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightForeArm_RightHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightFingerBase_RightHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+    </plugin>
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <skin>
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <scale>1.0</scale>
+    </skin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1041 1041 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_163.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <actor name="actor_167">
+
+    <plugin name="actor_collisions_plugin" filename="/root/sim_ws/devel/lib/libActorCollisionsPlugin.so">
+      <scaling collision="LHipJoint_LeftUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftUpLeg_LeftLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftLeg_LeftFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftFoot_LeftToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="RHipJoint_RightUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightUpLeg_RightLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightLeg_RightFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightFoot_RightToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="LowerBack_Spine_collision" scale="
+        12.0
+        20.0
+        5.0
+      " pose="0.05 0 0 0 -0.2 0"/>
+      <scaling collision="Spine_Spine1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck_Neck1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck1_Head_collision" scale="
+        5.0
+        5.0
+        3.0
+      "/>
+      <scaling collision="LeftShoulder_LeftArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftArm_LeftForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftForeArm_LeftHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftFingerBase_LeftHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+      <scaling collision="RightShoulder_RightArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightArm_RightForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightForeArm_RightHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightFingerBase_RightHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+    </plugin>
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <skin>
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <scale>1.0</scale>
+    </skin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1042 1042 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_167.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  <actor name="actor_232">
+
+    <plugin name="actor_collisions_plugin" filename="/root/sim_ws/devel/lib/libActorCollisionsPlugin.so">
+      <scaling collision="LHipJoint_LeftUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftUpLeg_LeftLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftLeg_LeftFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="LeftFoot_LeftToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="RHipJoint_RightUpLeg_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightUpLeg_RightLeg_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightLeg_RightFoot_collision" scale="
+        8.0
+        8.0
+        1.0
+      "/>
+      <scaling collision="RightFoot_RightToeBase_collision" scale="
+        4.0
+        4.0
+        1.5
+      "/>
+      <scaling collision="LowerBack_Spine_collision" scale="
+        12.0
+        20.0
+        5.0
+      " pose="0.05 0 0 0 -0.2 0"/>
+      <scaling collision="Spine_Spine1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck_Neck1_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="Neck1_Head_collision" scale="
+        5.0
+        5.0
+        3.0
+      "/>
+      <scaling collision="LeftShoulder_LeftArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="LeftArm_LeftForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftForeArm_LeftHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="LeftFingerBase_LeftHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+      <scaling collision="RightShoulder_RightArm_collision" scale="
+        0.01
+        0.001
+        0.001
+      "/>
+      <scaling collision="RightArm_RightForeArm_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightForeArm_RightHand_collision" scale="
+        5.0
+        5.0
+        1.0
+      "/>
+      <scaling collision="RightFingerBase_RightHandIndex1_collision" scale="
+        4.0
+        4.0
+        3.0
+      "/>
+    </plugin>
+    <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/devel/lib/libActorTriggerPlugin.so"></plugin>
+    <skin>
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <scale>1.0</scale>
+    </skin>
+    <animation name="walk">
+      <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+      <interpolate_x>true</interpolate_x>
+    </animation>
+
+    <script>
+      <loop>false</loop>
+      <auto_start>false</auto_start>
+      <spawn_pose>1043 1043 1 0 0 0</spawn_pose>
+      <trajectory id="0" type="walk" tension="0.6">
+        <filename>/root/sim_ws/src/data_play/temp/crossing_0/actor/actor_232.txt</filename>
+      </trajectory>
+    </script>
+  </actor>
+
+  </world>
+</sdf>

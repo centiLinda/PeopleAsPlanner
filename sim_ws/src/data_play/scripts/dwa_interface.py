@@ -1,0 +1,231 @@
+#!/usr/bin/env python3
+
+import rospy
+from nav_msgs.msg import Odometry
+from geometry_msgs.msg import Twist, PoseStamped
+import tf
+from std_msgs.msg import Int32
+import json
+import threading
+import numpy as np
+from sensor_msgs.msg import LaserScan  # Laser scan message
+from data_play.msg import ModelInfo
+import math
+from std_msgs.msg import Float32MultiArray
+from std_msgs.msg import Int32MultiArray
+
+from gazebo_msgs.srv import SetModelState
+from gazebo_msgs.msg import ModelState
+
+# for DWA
+# call DWA code via Robot.goal_pub
+# the rest of the code don't do anything and are just part of the template so the system can run
+
+class OurPlanner:
+    def __init__(self,goal,obs_list):
+
+        self.default=True
+        self.robot_range = 10  # same in test.py
+        self.robot_radius=1.0
+
+        self.goal=goal
+        self.obs_list=obs_list
+        self.history_list=[]
+        # self.base_controller=social_force(self.obs_list,self.robot_radius)
+        self.list_length=25
+        self.state_buffer=[] # list 25, FullState(px, py, vx, vy, radius, gx, gy, v_pref, theta), latest at the end
+        self.human_buffer=[] # list of list 25*n, list(ID, px, py, vx, vy), latest at the end
+        self.time_step=0.11
+
+    def predict(self,state,human_step,mask,laser_scan):
+        
+        self.following_id_vis = 0
+        action = np.array([0, 0])
+        comand_goal = np.array([0, 0])
+        invisible_list = []
+
+        return self.following_id_vis, action, comand_goal, invisible_list
+
+    def clear_buffer(self):
+        self.state_buffer=[] # list 25, FullState(px, py, vx, vy, radius, gx, gy, v_pref, theta), latest at the end
+        self.human_buffer=[] # list of list 25*n, list(ID, px, py, vx, vy), latest at the end
+
+
+class Robot:
+
+    def __init__(self):
+        self.lock=threading.Lock()
+        rospy.init_node('robot_listener', anonymous=True)
+        scene=rospy.get_param("scene")
+        self.robot_horizon=15.0
+        self.scene_path = '/root/sim_ws/src/data_play/dataset/scene_config_30/' + scene + '.json'
+
+        with open(self.scene_path, 'r') as f:
+            self.scene_config = json.load(f)  # Correct way to load JSON
+
+        robot_pos_goal = np.array(self.scene_config["robot_start_end"])
+
+        self.start_pos=robot_pos_goal[0:2]
+
+        self.goal_pos=robot_pos_goal[2:4]
+
+        self.gaol_range=0.3
+
+        self.obs_list=[]
+
+        for obs in self.scene_config["obstacles"]:
+            self.obs_list.append(np.array(obs))
+
+        self.planner=OurPlanner(self.goal_pos,self.obs_list)
+
+        self.start_mission=0
+
+        rospy.wait_for_service('/gazebo/set_model_state')
+
+        self.set_state = rospy.ServiceProxy('/gazebo/set_model_state', SetModelState)
+
+        self.robot_state=None
+        self.id_mask=None
+        self.visable_humans=None
+
+        self.laser_point=None
+        
+        self.laser_scan=[]
+
+        # Subscribers
+        self.model_info_sub = rospy.Subscriber('/gazebo/model_info', ModelInfo, self.model_info_callback)
+        self.odom_sub = rospy.Subscriber('/robot_1/odom', Odometry, self.odom_callback)
+        self.mission_sub = rospy.Subscriber('/env_control', Int32, self.mission_callback)  # New subscriber for env_control
+        self.laser_sub = rospy.Subscriber('/robot_1/laser_scan', LaserScan, self.laser_callback)
+        self.invisable_pub=rospy.Publisher('/invisable_id',Int32MultiArray,queue_size=1)
+        self.vis_pub = rospy.Publisher("/vis_array_topic", Float32MultiArray, queue_size=10)
+
+        self.goal_pub = rospy.Publisher('/move_base_simple/goal', PoseStamped, queue_size=10) # for DWA
+
+        # Publisher
+        self.cmd_vel_pub = rospy.Publisher('/cmd_vel_0', Twist, queue_size=10)
+
+        rospy.loginfo("Robot Node Initialized: Subscribed to /gazebo/model_info and /robot_1/odom, Publishing to /cmd_vel")
+
+    def laser_callback(self, msg):
+        self.laser_scan = msg.ranges
+        self.angle_min = msg.angle_min
+        self.angle_max = msg.angle_max
+        self.angle_increment = msg.angle_increment
+        self.range_max = msg.range_max
+
+    def mission_callback(self,msg):
+        if msg.data==0:                
+            model_state = ModelState()
+            model_state.model_name = 'robot_1'
+            model_state.pose.position.x = self.start_pos[0]
+            model_state.pose.position.y = self.start_pos[1]
+            model_state.pose.position.z = 0.0
+            response = self.set_state(model_state)
+            self.planner.clear_buffer()
+        with self.lock:
+            self.start_mission=msg.data
+
+    def model_info_callback(self, msg):
+        if self.id_mask is None:
+            self.id_mask={}
+            for i in range(len(msg.ids)):  # Loop through all models
+                model_id = msg.ids[i]  # Use index as ID (replace if needed)
+                model_tag = msg.tags[i]  # Example: Using model name as a "tag"
+                self.id_mask[model_id] = model_tag  # Store in dict
+        # rospy.loginfo(f"id_mask: {self.id_mask}")
+        if self.robot_state is None:
+            return
+        with self.lock:
+            state_now=self.robot_state[0:4]
+        model_temp=[]
+        for i in range(len(msg.ids)):  # Loop through all models
+            model_id = msg.ids[i]  # Assuming id is based on index (replace if needed)
+            px, py = msg.position[i].x, msg.position[i].y
+            vx, vy = msg.velocity[i].x, msg.velocity[i].y
+            dx=px-state_now[0]
+            dy=py-state_now[1]
+            if np.sqrt(dx**2+dy**2)<self.robot_horizon:
+                model_temp.append([model_id, px, py, vx, vy])
+        self.visable_humans=model_temp
+        
+        if self.start_mission==1:
+            track_id,action,subgoal,invis_index=self.planner.predict(state_now,model_temp,self.id_mask,self.laser_scan)
+            if np.linalg.norm(self.goal_pos - state_now[0:2])< self.gaol_range:
+                action=np.array([0,0])
+                self.start_mission=0
+                self.planner.clear_buffer()
+            # rospy.loginfo(f"track_id: {track_id},action: {action}")
+
+            # Create Twist message
+            cmd_msg = Twist()
+            cmd_msg.linear.x = action[0]
+            cmd_msg.linear.y = action[1]
+            self.cmd_vel_pub.publish(cmd_msg)
+
+            invis_id_msg=Int32MultiArray()
+            invis_id_msg.data=invis_index
+            # print(type(invis_index))
+            # print(invis_index)
+            self.invisable_pub.publish(invis_id_msg)
+
+            msg=Float32MultiArray()
+            msg.data = [track_id,subgoal[0],subgoal[1],self.robot_state[0],self.robot_state[1]]
+
+            self.vis_pub.publish(msg)
+            self.send_goal(self.goal_pos[0],self.goal_pos[1],3.1415926)
+
+        else:
+            invis_id_msg=Int32MultiArray()
+            invis_id_msg.data=[]
+            self.invisable_pub.publish(invis_id_msg)
+            msg=Float32MultiArray()
+            msg.data = [-1,self.goal_pos[0],self.goal_pos[1],self.robot_state[0],self.robot_state[1]]
+            self.vis_pub.publish(msg)
+            cmd_msg = Twist()
+            cmd_msg.linear.x = 0
+            cmd_msg.linear.y = 0
+            self.cmd_vel_pub.publish(cmd_msg)
+            model_state = ModelState()
+            model_state.model_name = 'robot_1'
+            model_state.pose.position.x = self.start_pos[0]
+            model_state.pose.position.y = self.start_pos[1]
+            model_state.pose.position.z = 0.0
+            response = self.set_state(model_state)
+            self.planner.clear_buffer()
+            self.send_goal(self.start_pos[0],self.start_pos[1],3.1415926)
+
+    def odom_callback(self, msg):
+        px = msg.pose.pose.position.x
+        py = msg.pose.pose.position.y
+        vx = msg.twist.twist.linear.x
+        vy = msg.twist.twist.linear.y
+        with self.lock:
+            self.robot_state = [px, py, vx, vy]
+        # print(f"robot state {px},{py}")
+    
+    def send_goal(self, x, y, yaw):
+        goal_msg = PoseStamped()
+        goal_msg.header.stamp = rospy.Time.now()
+        goal_msg.header.frame_id = "odom"  # Set the reference frame
+
+        goal_msg.pose.position.x = x
+        goal_msg.pose.position.y = y
+        goal_msg.pose.position.z = 0.0
+
+        quaternion = tf.transformations.quaternion_from_euler(0, 0, yaw)  # Convert yaw to quaternion
+        goal_msg.pose.orientation.x = quaternion[0]
+        goal_msg.pose.orientation.y = quaternion[1]
+        goal_msg.pose.orientation.z = quaternion[2]
+        goal_msg.pose.orientation.w = quaternion[3]
+
+        self.goal_pub.publish(goal_msg) # send to DWA here
+        rospy.loginfo("Goal sent to /move_base_simple/goal: x=%f, y=%f, yaw=%f", x, y, yaw)
+        
+
+if __name__ == '__main__':
+    try:
+        robot = Robot()
+        rospy.spin()  # Keep the node running, waiting for callbacks
+    except rospy.ROSInterruptException:
+        pass

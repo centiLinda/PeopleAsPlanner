@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <world name="default">
+    <actor name="walking_actor">
+      <pose>10 10 1.232 0 0 1.5707</pose>
+      <plugin name="TrajectoryFollowerPlugin" filename="/root/sim_ws/build/data_play/libActorTriggerPlugin.so">
+        <trajectory>/root/sim_ws/src/data_play/temp/actor_132.txt</trajectory>
+        <wait_position>20.0 20.0 1.5</wait_position>
+      </plugin>
+      
+      <skin>
+        <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+        <scale>1.0</scale>
+      </skin>
+      
+      <animation name="walk">
+        <filename>/root/sim_ws/src/data_play/models/animation/walk.dae</filename>
+        <interpolate_x>true</interpolate_x>
+      </animation>
+      
+      <script>
+        <loop>false</loop>
+        <auto_start>false</auto_start>
+        <trajectory id="0" type="walk" tension="0.6">
+          <waypoint>
+            <time>0</time>
+            <pose>10 10 1.0 0 0 0</pose>
+          </waypoint>
+          <waypoint>
+            <time>1</time>
+            <pose>0 0 1.0 0 0 0</pose>
+          </waypoint>
+          <waypoint>
+            <time>2</time>
+            <pose>2.0 0 1.0 0 0 0</pose>
+          </waypoint>
+          <waypoint>
+            <time>2.5</time>
+            <pose>2 0 1.0 0 0 1.57</pose>
+          </waypoint>
+          <waypoint>
+            <time>4</time>
+            <pose>2 2 1.0 0 0 1.57</pose>
+          </waypoint>
+          <waypoint>
+            <time>4.5</time>
+            <pose>2 2 1.0 0 0 3.142</pose>
+          </waypoint>
+          <waypoint>
+            <time>6</time>
+            <pose>0 2 1 0 0 3.142</pose>
+          </waypoint>
+          <waypoint>
+            <time>6.5</time>
+            <pose>0 2 1 0 0 -1.57</pose>
+          </waypoint>
+        </trajectory>
+      </script>
+    </actor>
+  </world>
+</sdf>
