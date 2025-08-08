@@ -1,7 +1,6 @@
 # [RAL 2025] Following Is All You Need: Robot Crowd Navigation Using People As Planners
 
 ## Getting started
-
 This code has been tested on [ROS1](https://wiki.ros.org/ROS/Tutorials) Noetic with Python 3.8. 
 We provide the complete environment on Docker:
 ```
@@ -42,7 +41,6 @@ Feel free to raise an issue if you have any questions :blush:
 - [ ] update RAL citation
 
 ## Citation
-
 If you find this work useful, please cite [Following Is All You Need: Robot Crowd Navigation Using People As Planners](https://arxiv.org/abs/2504.10828) ([pdf](https://arxiv.org/abs/2504.10828), [video](https://youtu.be/xnX6_-D2ZfQ)):
 
 ```bibtex
@@ -56,3 +54,6 @@ If you find this work useful, please cite [Following Is All You Need: Robot Crow
       url={https://arxiv.org/abs/2504.10828}, 
 }
 ```
+
+## Contributors
+[![Contributors](https://img.shields.io/github/contributors/centiLinda/PeopleAsPlanner.svg)](https://github.com/centiLinda/PeopleAsPlanner/graphs/contributors)
