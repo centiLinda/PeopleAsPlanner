@@ -56,4 +56,6 @@ If you find this work useful, please cite [Following Is All You Need: Robot Crow
 ```
 
 ## Contributors
-[![Contributors](https://img.shields.io/github/contributors/centiLinda/PeopleAsPlanner.svg)](https://github.com/centiLinda/PeopleAsPlanner/graphs/contributors)
+<a href="https://github.com/centiLinda/PeopleAsPlanner/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=centiLinda/PeopleAsPlanner" />
+</a>
